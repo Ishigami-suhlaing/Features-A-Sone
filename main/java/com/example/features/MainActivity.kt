@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         cameraImg = findViewById<ImageView>(R.id.cameraImg)
+
+
         btnCamera = findViewById<Button>(R.id.btnCamera)
         btnShare = findViewById<Button>(R.id.btnShare)
         btnWeb = findViewById<Button>(R.id.btnWeb)
@@ -42,9 +44,27 @@ class MainActivity : AppCompatActivity() {
         btnNetwork = findViewById<Button>(R.id.btnNetwork)
 
         btnCamera.setOnClickListener { takePhoto() }
-        btnShare.setOnClickListener {  }
-        btnWeb.setOnClickListener {  }
-        btnDesign.setOnClickListener {  }
+        btnShare.setOnClickListener {
+
+
+            val sharePreference = getSharedPreferences("LocalData", Context.MODE_PRIVATE)
+            val edit  = sharePreference.edit()
+            edit.putString("Name", "Android Kotlin")
+            edit.putInt("Age", 23)
+            edit.commit()
+
+            val intent = Intent(this, SharePreference::class.java)
+            startActivity(intent)
+        }
+        btnWeb.setOnClickListener {
+
+            val intent = Intent(this, WebView::class.java)
+            startActivity(intent)
+        }
+        btnDesign.setOnClickListener {
+            val intent = Intent(this, BackgroundDesign::class.java)
+            startActivity(intent)
+        }
         btnNetwork.setOnClickListener {
             if (checkNetwork()) Toast.makeText(
                 this,
